@@ -5,8 +5,8 @@ COPY src /usr/web-app/
 
 WORKDIR /usr/web-app
 
-RUN npm install
+RUN sudo npm install
 
 EXPOSE 3007
 
-CMD [ "node", "server.js" ]
+CMD [ "sudo node", "server.js" ]
