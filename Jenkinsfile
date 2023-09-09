@@ -27,7 +27,7 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
-                docker build -t 1.0 .
+                podman build -t 1.0 .
                 '''
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                docker run 1.0
+                podman run 1.0
                 curl http://localhost:3007 || echo "failed-error!"
                 cd myapp
                 python3 hello.py
