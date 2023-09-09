@@ -7,7 +7,7 @@ pipeline {
     stages {
 
         stage ('Clone') {
-            when { anyOf { expression { env.BRANCH_NAME ==  branch 'master' || env.BRANCH_NAME == branch 'test' } } }
+            when { anyOf { expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'test' } } }
             steps {
                 sh "printenv"
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AviAyano/Jenkins']])
