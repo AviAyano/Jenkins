@@ -1,4 +1,4 @@
-FROM  registry.hub.docker.com/node:20-alpine
+FROM  registry.hub.docker.com/library/nginx
 
 COPY package.json /usr/web-app/
 COPY src /usr/web-app/
