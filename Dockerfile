@@ -7,4 +7,6 @@ WORKDIR /usr/web-app
 
 RUN npm install
 
+EXPOSE 3007
+
 CMD [ "node", "server.js" ]

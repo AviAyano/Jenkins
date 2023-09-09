@@ -18,6 +18,7 @@ pipeline {
         stage ('Clone') {
             // when { anyOf { branch 'master'; branch 'test' } }
             steps {
+                sh "printenv"
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AviAyano/Jenkins']])
            }
         }
@@ -26,8 +27,7 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
-                cd myapp
-                pip install -r requirements.txt
+                docker build -t 1.0 .
                 '''
             }
         }
@@ -36,6 +36,8 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
+                docker run 1.0
+                curl http://localhost:3007 || echo "failed-error!"
                 cd myapp
                 python3 hello.py
                 '''
