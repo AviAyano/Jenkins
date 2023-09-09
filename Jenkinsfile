@@ -1,10 +1,10 @@
 pipeline {
-    // agent any
-    agent { 
-        node {
-            label 'jenkins-agent-python'
-            }
-      }
+    agent any
+    // agent { 
+    //     node {
+    //         label 'jenkins-agent-python'
+    //         }
+    //   }
     //   triggers {
     //     pollSCM '* * * * *'
     //        }
