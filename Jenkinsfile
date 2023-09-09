@@ -29,8 +29,6 @@ pipeline {
                 sh '''
                 sudo podman build -t 1.0 .
                 sudo podman tag 1.0 localhost:8082/1.0
-                sudo podman login -u admin -p bezeq2108 localhost:8082
-                sudo podman push localhost:8082/1.0
                 '''
             }
         }
@@ -41,8 +39,6 @@ pipeline {
                 sh '''
                 sudo podman run 1.0
                 curl http://localhost:3007 || echo "failed-error!"
-                cd myapp
-                python3 hello.py
                 '''
                 // dockerImage = docker.build dockerimagename
             }
@@ -55,6 +51,10 @@ pipeline {
             //     }
             steps {
                 echo "Uploading to Nexus ..."
+                sh """
+                    sudo podman login -u admin -p bezeq2108 localhost:8082
+                    sudo podman push localhost:8082/1.0
+                """
                 // nexusArtifactUploader artifacts: [[artifactId: 'myapp', classifier: 'avi', file: 'myapp.zip', type: 'zip']], credentialsId: 'nexus-user', groupId: 'nexus-artifact-uploader', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'avi-docker-repo', version: '2.14'
                 
                 // docker.withRegistry( registry, registryCredential ) {
