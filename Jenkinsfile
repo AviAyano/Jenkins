@@ -28,6 +28,9 @@ pipeline {
                 echo "Building.."
                 sh '''
                 sudo podman build -t 1.0 .
+                sudo podman tag 1.0 localhost:8082/1.0
+                sudo podman login -u admin -p bezeq2108 localhost:8082
+                sudo podman push localhost:8082/1.0
                 '''
             }
         }
