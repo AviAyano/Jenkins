@@ -7,7 +7,7 @@ pipeline {
     stages {
 
         stage ('Clone') {
-            // when { anyOf { branch 'master'; branch 'test' } }
+            when { anyOf { expression { env.BRANCH_NAME ==  branch 'master' || env.BRANCH_NAME == branch 'test' } } }
             steps {
                 sh "printenv"
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AviAyano/Jenkins']])
@@ -18,6 +18,7 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
+                sudo su
                 sudo podman build -t 1.0 .
                 sudo podman tag 1.0 localhost:8082/1.0
                 '''
