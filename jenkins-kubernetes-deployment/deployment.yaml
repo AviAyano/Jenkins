@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment #The name of the Kubernetes Deployment to be created in the Kubernetes cluster
+  labels:
+    app: web-app
+spec:
+  replicas: 1 #The number of pods to be created in the Kubernetes cluster
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app 
+    spec:
+      containers:
+      - name: web-app #The name of container
+        image: localhost:8082/1.0 
+        ports:
+        - containerPort: 3007 #The port for the application container

@@ -74,8 +74,8 @@ pipeline {
             steps {
                 echo 'Deploy to Elastic Kubernetes Service ...'
                sh '''
-                cd myapp
-                python3 hello.py --name=avi
+                kubectl apply --file-name deployment.yaml
+                kubectl apply -f ingress.yaml
                 '''
                 // kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
             }
