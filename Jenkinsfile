@@ -1,14 +1,5 @@
 pipeline {
     agent any
-    // agent { 
-    //     node {
-    //         label 'jenkins-agent-python'
-    //         }
-    //   }
-    //   triggers {
-    //     pollSCM '* * * * *'
-    //        }
-           
     environment {
             imageName = "myapp"
             dockerImage = ''
@@ -38,28 +29,18 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 sudo podman run 1.0
-                curl http://localhost:3007 || echo "failed-error!"
+                curl http://localhost:3007 || echo "Failed."
                 '''
-                // dockerImage = docker.build dockerimagename
             }
         }
 
         stage('Uploading to Nexus') {
-            // environment {
-            //    registryCredential = 'dockerhub-credentials'
-            //    registry = "http://nexus:8081/"
-            //     }
             steps {
                 echo "Uploading to Nexus ..."
                 sh """
                     sudo podman login -u admin -p bezeq2108 localhost:8082
                     sudo podman push localhost:8082/1.0
                 """
-                // nexusArtifactUploader artifacts: [[artifactId: 'myapp', classifier: 'avi', file: 'myapp.zip', type: 'zip']], credentialsId: 'nexus-user', groupId: 'nexus-artifact-uploader', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'avi-docker-repo', version: '2.14'
-                
-                // docker.withRegistry( registry, registryCredential ) {
-                // dockerImage.push("latest")
-                // }
             }
         }
 
@@ -70,14 +51,12 @@ pipeline {
             }
         }
 
-        stage('Deploy to EKS') {
+        stage('Deploy to Minikube') {
             steps {
-                echo 'Deploy to Elastic Kubernetes Service ...'
+                echo 'Deploy to Minikube ...'
                sh '''
                 kubectl apply --file-name deployment.yaml
-                kubectl apply -f ingress.yaml
                 '''
-                // kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
             }
         }
     }
