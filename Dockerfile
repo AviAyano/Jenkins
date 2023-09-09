@@ -1,12 +1,12 @@
-FROM  registry.hub.docker.com/library/nginx
+FROM  registry.hub.docker.com/library/node
 
 COPY package.json /usr/web-app/
 COPY src /usr/web-app/
 
 WORKDIR /usr/web-app
 
-RUN sudo npm install
+RUN npm install
 
 EXPOSE 3007
 
-CMD [ "sudo", "node", "server.js" ]
+CMD [ "node", "server.js" ]
