@@ -9,7 +9,7 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
     BUILDAH_ISOLATION=chroot \
     STORAGE_DRIVER=vfs
 
-RUN --cap-add CAP_SYS_ADMIN npm install
+RUN  sudo su && npm install
 
 EXPOSE 3007
 
