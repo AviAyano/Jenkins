@@ -1,1 +1,4 @@
-FROM  registry.hub.docker.com/library/nginxdemos/hello:0.3-plain-text
+FROM  registry.hub.docker.com/library/alpine
+
+
+CMD ["echo", "Hello World!"]

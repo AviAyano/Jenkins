@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-            imageName = "myapp"
-            dockerImage = ''
-           }
     stages {
 
         stage ('Clone') {
@@ -18,7 +14,6 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
-                sudo su
                 sudo podman build -t 1.0 .
                 sudo podman tag 1.0 localhost:8082/1.0
                 '''
