@@ -30,7 +30,7 @@ pipeline {
                 echo "Testing.."
                 sh '''
                 sudo podman run 1.0
-                curl http://localhost:3007 || echo "Failed."
+                curl http://localhost:80 || echo "Failed."
                 '''
             }
         }
