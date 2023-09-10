@@ -9,7 +9,7 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
     BUILDAH_ISOLATION=chroot \
     STORAGE_DRIVER=vfs
 
-RUN  sudo su && npm install
+RUN  sudo su && apt install npm
 
 EXPOSE 3007
 
