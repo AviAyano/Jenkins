@@ -14,8 +14,8 @@ pipeline {
             steps {
                 echo "Building.."
                 sh '''
-                sudo podman build -t 1.0 .
-                sudo podman tag 1.0 localhost:8082/1.0
+                sudo docker build -t 1.0 .
+                sudo docker tag 1.0 localhost:8082/1.0
                 '''
             }
         }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                sudo podman run 1.0
+                sudo docker run 1.0
                 curl http://localhost:80 || echo "Failed."
                 '''
             }
@@ -34,8 +34,8 @@ pipeline {
             steps {
                 echo "Uploading to Nexus ..."
                 sh """
-                    sudo podman login -u admin -p bezeq2108 localhost:8082
-                    sudo podman push localhost:8082/1.0
+                    sudo docker login -u admin -p bezeq2108 localhost:8082
+                    sudo docker push localhost:8082/1.0
                 """
             }
         }
