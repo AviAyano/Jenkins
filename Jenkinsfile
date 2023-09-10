@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "Testing.."
                 sh '''
-                sudo podman run 1.0
+                sudo podman run 1.0 --network=none
                 curl http://localhost:80 || echo "Failed."
                 '''
             }
