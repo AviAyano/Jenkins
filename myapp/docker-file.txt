@@ -8,3 +8,5 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
     STORAGE_DRIVER=vfs
 
 RUN  sudo su && apt install npm
+
+WORKDIR /usr/web-app
