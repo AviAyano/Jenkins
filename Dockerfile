@@ -9,10 +9,7 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
     BUILDAH_ISOLATION=chroot \
     STORAGE_DRIVER=vfs
 
-RUN  npm install --unsafe-perm=true
-
-USER 1001
-
+RUN --cap-add CAP_SYS_ADMIN npm install
 EXPOSE 3007
 
 CMD [ "node", "server.js" ]
