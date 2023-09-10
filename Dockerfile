@@ -9,11 +9,12 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
     BUILDAH_ISOLATION=chroot \
     STORAGE_DRIVER=vfs
 
-RUN sudo su \adduser -g 0 -u 1001 jenkins && \
-    yum -y update && \ yum clean all && \ chmod -R 775 /usr/lib/jvm && \ npm install
-    
+RUN yum -y update && yum install -y libcap2-bin
+RUN setcap cap_sys_admin=eip /bin/npm 
+RUN  adduser -g 0 -u 1001 jenkins && \ yum -y update && \ yum clean all && \ npm install --unsafe-perm=true
+
 USER 1001
 
 EXPOSE 3007
 
-CMD [ "sudo node", "server.js" ]
+CMD [ "node", "server.js" ]
