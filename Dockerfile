@@ -5,12 +5,6 @@ COPY src /usr/web-app/
 
 WORKDIR /usr/web-app
 
-ENV _BUILDAH_STARTED_IN_USERNS="" \
-    BUILDAH_ISOLATION=chroot \
-    STORAGE_DRIVER=vfs
-
-RUN  sudo su && apt install npm
-
 EXPOSE 3007
 
 CMD [ "node", "server.js" ]
