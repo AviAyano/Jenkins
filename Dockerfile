@@ -6,8 +6,8 @@ FROM  node:16-alpine
 
 # WORKDIR /usr/web-app
 
-RUN apk add -U git curl npm podman
+RUN apk add -U git curl npm podman docker.io
 
 # EXPOSE 3007
 
-# CMD [ "node", "server.js" ]
+CMD [ "service ", "docker ", "start" ]
