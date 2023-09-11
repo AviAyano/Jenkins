@@ -1,5 +1,5 @@
 pipeline {
-    agent { withDockerfile('dockerfile') }
+    agent { docker { image 'mgoltzsche/podman:latest' } }
 
     stages {
 
@@ -15,8 +15,8 @@ pipeline {
             steps {
                 echo "Building with agent ..."
                 sh '''
-                sudo docker build -t 1.0 .
-                sudo docker tag 1.0 localhost:8082/1.0
+                sudo podman build -t 1.0 .
+                sudo podman tag 1.0 localhost:8082/1.0
                 '''
                 
             }
@@ -24,20 +24,20 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo "Testing... oprn your localhost:3007 - you shold see a message."
-                sh '''
-                node --version
-                git --version
-                curl --version
-                podman --version
-
-                curl http://localhost:3007 || echo "Failed to open the 3007 port."
-                '''
+                echo "Testing... "
                 // sh '''
-                // sudo su
-                // sudo podman run 1.0 
-                // curl http://localhost:3007 || echo "Failed."
+                // node --version
+                // git --version
+                // curl --version
+                // podman --version
+
+                // curl http://localhost:3007 || echo "Failed to open the 3007 port."
                 // '''
+                sh '''
+                sudo su
+                sudo podman run 1.0 
+                curl http://localhost:3007 || echo "Failed."
+                '''
             }
         }
 
