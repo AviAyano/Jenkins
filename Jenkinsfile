@@ -1,5 +1,5 @@
 pipeline {
-    agent { withDockerfile(dockerfile true) }
+    agent { withDockerfile('dockerfile') }
 
     stages {
 
@@ -14,10 +14,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building with agent ..."
-                // sh '''
-                // sudo podman build -t 1.0 .
-                // sudo podman tag 1.0 localhost:8082/1.0
-                // '''
+                sh '''
+                sudo docker build -t 1.0 .
+                sudo docker tag 1.0 localhost:8082/1.0
+                '''
                 
             }
         }
