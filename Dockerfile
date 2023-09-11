@@ -1,4 +1,4 @@
-FROM  registry.hub.docker.com/library/node
+FROM  node:16-alpine
 
 # COPY package.json /usr/web-app/
 
