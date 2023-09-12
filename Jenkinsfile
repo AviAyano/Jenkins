@@ -5,7 +5,7 @@ pipeline {
     stages {
 
         stage ('Clone') {
-            when { anyOf { expression { env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'test' } } }
+            when { anyOf { expression { env.BRANCH_NAME == 'origin/master' || env.BRANCH_NAME == 'origin/test' } } }
             steps {
                 sh "printenv"
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/AviAyano/Jenkins']])
@@ -30,6 +30,10 @@ pipeline {
                 sh '''
                 printenv
                 node --version
+                docker --version
+                podman --version
+                git --version
+                curl --version
                 '''
                 // curl http://localhost:3007 || echo "Failed to open the 3007 port."
                 
