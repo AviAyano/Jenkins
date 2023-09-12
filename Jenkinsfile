@@ -1,5 +1,6 @@
 pipeline {
-    agent { docker { image 'mattermost/podman:1.8.0' } }
+    agent any 
+    // { docker { image 'mattermost/podman:1.8.0' } }
 
     stages {
 
