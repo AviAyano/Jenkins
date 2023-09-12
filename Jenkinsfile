@@ -15,6 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building with agent ..."
+                sh "printenv"
                 // sh '''
                 // sudo podman build -t 1.0 .
                 // sudo podman tag 1.0 localhost:8082/1.0
@@ -27,7 +28,7 @@ pipeline {
             steps {
                 echo "Testing... "
                 sh '''
-                env
+                printenv
                 node --version
                 '''
                 // curl http://localhost:3007 || echo "Failed to open the 3007 port."
@@ -42,6 +43,7 @@ pipeline {
         stage('Uploading to Nexus') {
             steps {
                 echo "Uploading to Nexus ..."
+                sh "printenv"
                 // sh """
                 //     podman login -u admin -p bezeq2108 localhost:8082
                 //     podman push localhost:8082/1.0
