@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'docker pull mattermost/podman:1.8.0' } }
+    agent { docker { image 'mattermost/podman:1.8.0' } }
 
     stages {
 
