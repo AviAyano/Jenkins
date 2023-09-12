@@ -10,3 +10,6 @@ ENV _BUILDAH_STARTED_IN_USERNS="" \
 RUN  sudo su && apt install npm
 
 WORKDIR /usr/web-app
+
+RUN apk add -U git curl  
+images dont work : 'mgoltzsche/podman:latest'

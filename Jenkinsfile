@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'mgoltzsche/podman:latest' } }
+    agent { docker { image 'docker pull mattermost/podman:1.8.0' } }
 
     stages {
 
@@ -34,8 +34,7 @@ pipeline {
                 // curl http://localhost:3007 || echo "Failed to open the 3007 port."
                 // '''
                 sh '''
-                sudo su
-                sudo podman run 1.0 
+                podman run 1.0 
                 curl http://localhost:3007 || echo "Failed."
                 '''
             }
@@ -44,16 +43,16 @@ pipeline {
         stage('Uploading to Nexus') {
             steps {
                 echo "Uploading to Nexus ..."
-                sh """
-                    podman login -u admin -p bezeq2108 localhost:8082
-                    podman push localhost:8082/1.0
-                """
+                // sh """
+                //     podman login -u admin -p bezeq2108 localhost:8082
+                //     podman push localhost:8082/1.0
+                // """
             }
         }
 
         stage ('Uploading to S3') {
             steps {
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'bezeq', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'cicd-poc-test', userMetadata: [] 
+                // s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'bezeq', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'cicd-poc-test', userMetadata: [] 
                 echo "Push to S3 reposetory"
             }
         }
@@ -61,9 +60,9 @@ pipeline {
         stage('Deploy to Minikube') {
             steps {
                 echo 'Deploy to Minikube ...'
-               sh '''
-                kubectl apply --file-name deployment.yaml
-                '''
+            //    sh '''
+            //     kubectl apply --file-name deployment.yaml
+            //     '''
             }
         }
     }
