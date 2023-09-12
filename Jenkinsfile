@@ -1,6 +1,10 @@
 pipeline {
-    agent any 
-    // { docker { image 'mattermost/podman:1.8.0' } }
+    agent  
+    { docker { 
+        label 'docker'
+        image 'liatrio/jenkins-alpine'
+        } 
+    }
 
     stages {
 

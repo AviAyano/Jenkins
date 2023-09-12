@@ -12,4 +12,4 @@ RUN  sudo su && apt install npm
 WORKDIR /usr/web-app
 
 RUN apk add -U git curl  
-images dont work : 'mgoltzsche/podman:latest'
+images dont work : 'mgoltzsche/podman:latest ,'image 'mattermost/podman:1.8.0','node:18.17.1-alpine3.18' 
