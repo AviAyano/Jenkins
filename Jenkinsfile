@@ -15,10 +15,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building with agent ..."
-                sh '''
-                sudo podman build -t 1.0 .
-                sudo podman tag 1.0 localhost:8082/1.0
-                '''
+                // sh '''
+                // sudo podman build -t 1.0 .
+                // sudo podman tag 1.0 localhost:8082/1.0
+                // '''
                 
             }
         }
@@ -26,18 +26,16 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Testing... "
-                // sh '''
-                // node --version
-                // git --version
-                // curl --version
-                // podman --version
-
-                // curl http://localhost:3007 || echo "Failed to open the 3007 port."
-                // '''
                 sh '''
-                podman run 1.0 
-                curl http://localhost:3007 || echo "Failed."
+                env
+                node --version
                 '''
+                // curl http://localhost:3007 || echo "Failed to open the 3007 port."
+                
+                // sh '''
+                // podman run 1.0 
+                // curl http://localhost:3007 || echo "Failed."
+                // '''
             }
         }
 
